@@ -44,13 +44,13 @@ class ApiController extends Controller
      * @param string $message
      * @return JsonResponse
      */
-    public function respondNotContent($status, $message): JsonResponse
+    public function respondNotContent($status_code = HttpResponse::HTTP_NO_CONTENT, $status, $message, $data = []): JsonResponse
     {
         return $this->setStatusCode(HttpResponse::HTTP_NO_CONTENT)->respond([
-            'status_code' => HttpResponse::HTTP_NO_CONTENT,
+            'status_code' => $status_code,
             'status' => $status,
             'message' => $message,
-            'data' => [],
+            'data' => $data,
         ]);
     }
 
@@ -76,12 +76,11 @@ class ApiController extends Controller
      * @param $message
      * @return JsonResponse
      */
-    public function respondCreated($status, $message, $data): JsonResponse
+    public function respondCreated($status_code = HttpResponse::HTTP_CREATED, $status, $data): JsonResponse
     {
         return $this->setStatusCode(HttpResponse::HTTP_CREATED)->respond([
-            'status_code' => HttpResponse::HTTP_CREATED,
+            'status_code' => $status_code,
             'status' => $status,
-            'message' => $message,
             'data' => $data,
         ]);
     }
@@ -101,12 +100,25 @@ class ApiController extends Controller
      * @param $message
      * @return JsonResponse
      */
-    public function respondSuccess($status, $message, $data): JsonResponse
+    public function respondSuccess($status_code = HttpResponse::HTTP_OK, $status, $message, $data): JsonResponse
     {
         return $this->setStatusCode(HttpResponse::HTTP_OK)->respond([
-            'status_code' => HttpResponse::HTTP_OK,
+            'status_code' => $status_code,
             'status' => $status,
             'message' => $message,
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * @param $message
+     * @return JsonResponse
+     */
+    public function respondSuccessWithoutMessage($status_code = HttpResponse::HTTP_OK, $status, $data): JsonResponse
+    {
+        return $this->setStatusCode(HttpResponse::HTTP_OK)->respond([
+            'status_code' => $status_code,
+            'status' => $status,
             'data' => $data,
         ]);
     }

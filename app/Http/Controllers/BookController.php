@@ -26,7 +26,7 @@ class BookController extends ApiController
      * @return AnonymousResourceCollection
      * @throws Throwable
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request)
     {
         $per_page = $request->get('per_page') ?: 20;
         $term = $request->get('term') ?: '';
@@ -35,7 +35,8 @@ class BookController extends ApiController
             ->orWhere('publisher', 'LIKE', "%$term%")
             ->orWhere('release_date', 'LIKE', "%$term%")
             ->latest();
-        return BookResource::collection($books->paginate($per_page));
+        return $this->respondSuccessWithoutMessage(HttpResponse::HTTP_OK, "success", BookResource::collection($books->paginate($per_page)));
+        // return BookResource::collection($books->paginate($per_page));
     }
 
     /**
@@ -50,7 +51,7 @@ class BookController extends ApiController
     {
         try {
             $book = Book::create($request->all());
-            return $this->respondCreated("success","The book ".$book->name." was updated successfully",new BookResource($book));
+            return $this->respondCreated(HttpResponse::HTTP_CREATED, "success", ['book' => new BookResource($book)]);
         } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
@@ -69,7 +70,7 @@ class BookController extends ApiController
     {
         $book = Book::find($id);
         throw_if(!$book, NotFoundHttpException::class, 'Book not found');
-        return new BookResource($book);
+        return $this->respondSuccessWithoutMessage(HttpResponse::HTTP_OK, "success", new BookResource($book));
     }
 
     /**
@@ -88,7 +89,7 @@ class BookController extends ApiController
         throw_if(!$book, NotFoundHttpException::class, 'Book not found');
         try {
             $book->update($request->all());
-            return $this->respondSuccess(HttpResponse::HTTP_OK, "success","The book ".$book->name." was updated successfully",new BookResource($book));
+            return $this->respondSuccess(HttpResponse::HTTP_OK, "success", "The book " . $book->name . " was updated successfully", new BookResource($book));
         } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
@@ -104,8 +105,8 @@ class BookController extends ApiController
     public function destroy(int $id): JsonResponse
     {
         $book = Book::find($id);
-        throw_if(! $book, NotFoundHttpException::class, 'Book not found');
+        throw_if(!$book, NotFoundHttpException::class, 'Book not found');
         $book->delete();
-        return $this->respondNotContent("success","The book ".$book->name." was deleted successfully");
+        return $this->respondNotContent(null, "success", "The book " . $book->name . " was deleted successfully");
     }
 }
