@@ -18,6 +18,16 @@ composer install
 
 Next you need to make a copy of the `.env.example` file and rename it to `.env` inside your project root.
 
+Go to '.env' file and make changes on the database connection settings
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=books
+DB_USERNAME=root
+DB_PASSWORD='Your Database Password'
+```
+
 Run the following command to generate your app key:
 
 ```
