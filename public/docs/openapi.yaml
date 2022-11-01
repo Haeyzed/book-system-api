@@ -1,0 +1,474 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:8000'
+paths:
+  /api/v1/books:
+    get:
+      summary: 'Display a listing of the books or search by name.'
+      description: ''
+      parameters:
+        -
+          in: query
+          name: term
+          description: 'Search query parameter'
+          example: ducimus
+          required: false
+          schema:
+            type: string
+            description: 'Search query parameter'
+            example: ducimus
+        -
+          in: query
+          name: per_page
+          description: 'Items per page'
+          example: 14
+          required: false
+          schema:
+            type: integer
+            description: 'Items per page'
+            example: 14
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: null
+                      name: null
+                      isbn: null
+                      authors: null
+                      number_of_pages: null
+                      publisher: null
+                      country: null
+                      release_date: null
+                    -
+                      id: null
+                      name: null
+                      isbn: null
+                      authors: null
+                      number_of_pages: null
+                      publisher: null
+                      country: null
+                      release_date: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        active: false
+                    path: /
+                    per_page: 20
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: null
+                        name: null
+                        isbn: null
+                        authors: null
+                        number_of_pages: null
+                        publisher: null
+                        country: null
+                        release_date: null
+                      -
+                        id: null
+                        name: null
+                        isbn: null
+                        authors: null
+                        number_of_pages: null
+                        publisher: null
+                        country: null
+                        release_date: null
+                    items:
+                      type: object
+                  links:
+                    type: object
+                    example:
+                      first: '/?page=1'
+                      last: '/?page=1'
+                      prev: null
+                      next: null
+                  meta:
+                    type: object
+                    example:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      links:
+                        -
+                          url: null
+                          label: '&laquo; Previous'
+                          active: false
+                        -
+                          url: '/?page=1'
+                          label: '1'
+                          active: true
+                        -
+                          url: null
+                          label: 'Next &raquo;'
+                          active: false
+                      path: /
+                      per_page: 20
+                      to: 2
+                      total: 2
+      tags:
+        - 'Book Endpoints'
+      security: []
+    post:
+      summary: 'Create a new book'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: null
+                    name: null
+                    isbn: null
+                    authors: null
+                    number_of_pages: null
+                    publisher: null
+                    country: null
+                    release_date: null
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: null
+                      name: null
+                      isbn: null
+                      authors: null
+                      number_of_pages: null
+                      publisher: null
+                      country: null
+                      release_date: null
+      tags:
+        - 'Book Endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: dolore
+                isbn:
+                  type: string
+                  description: ''
+                  example: dolorem
+                authors:
+                  type: array
+                  description: ''
+                  example:
+                    - assumenda
+                  items:
+                    type: string
+                country:
+                  type: string
+                  description: ''
+                  example: ut
+                number_of_pages:
+                  type: integer
+                  description: ''
+                  example: 20
+                publisher:
+                  type: string
+                  description: ''
+                  example: amet
+                release_date:
+                  type: string
+                  description: ''
+                  example: in
+              required:
+                - name
+                - isbn
+                - authors
+                - country
+                - number_of_pages
+                - publisher
+                - release_date
+      security: []
+  '/api/v1/books/{id}':
+    get:
+      summary: 'Show a specified book.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: null
+                    name: null
+                    isbn: null
+                    authors: null
+                    number_of_pages: null
+                    publisher: null
+                    country: null
+                    release_date: null
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: null
+                      name: null
+                      isbn: null
+                      authors: null
+                      number_of_pages: null
+                      publisher: null
+                      country: null
+                      release_date: null
+      tags:
+        - 'Book Endpoints'
+      security: []
+    put:
+      summary: 'Update the specified book'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: '0'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: null
+                    name: null
+                    isbn: null
+                    authors: null
+                    number_of_pages: null
+                    publisher: null
+                    country: null
+                    release_date: null
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: null
+                      name: null
+                      isbn: null
+                      authors: null
+                      number_of_pages: null
+                      publisher: null
+                      country: null
+                      release_date: null
+      tags:
+        - 'Book Endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: quos
+                isbn:
+                  type: string
+                  description: ''
+                  example: consequatur
+                authors:
+                  type: array
+                  description: ''
+                  example:
+                    - cum
+                  items:
+                    type: string
+                country:
+                  type: string
+                  description: ''
+                  example: quaerat
+                number_of_pages:
+                  type: integer
+                  description: ''
+                  example: 10
+                publisher:
+                  type: string
+                  description: ''
+                  example: in
+                release_date:
+                  type: string
+                  description: ''
+                  example: aperiam
+              required:
+                - name
+                - isbn
+                - authors
+                - country
+                - number_of_pages
+                - publisher
+                - release_date
+      security: []
+    delete:
+      summary: 'Delete a book'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Book Endpoints'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the book'
+        example: 5
+        required: true
+        schema:
+          type: integer
+  /api/user:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: 'Book Endpoints'
+    description: ''
+  -
+    name: Endpoints
+    description: ''

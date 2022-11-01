@@ -13,6 +13,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Throwable;
 
+/**
+ * @group Book Endpoints
+ */
 class BookController extends ApiController
 {
 
@@ -22,7 +25,7 @@ class BookController extends ApiController
      * @queryParam term string Search query parameter
      * @queryParam per_page int Items per page
      * @apiResourceCollection App\Http\Resources\BookResource
-     * @apiResourceModel App\Modules\Book paginate=20
+     * @apiResourceModel App\Models\Book paginate=20
      * @return AnonymousResourceCollection
      * @throws Throwable
      */
@@ -36,14 +39,13 @@ class BookController extends ApiController
             ->orWhere('release_date', 'LIKE', "%$term%")
             ->latest();
         return $this->respondSuccessWithoutMessage(HttpResponse::HTTP_OK, "success", BookResource::collection($books->paginate($per_page)));
-        // return BookResource::collection($books->paginate($per_page));
     }
 
     /**
      * Create a new book
      * @param StoreBookRequest $request
      * @apiResource App\Http\Resources\BookResource
-     * @apiResourceModel App\Modules\Book
+     * @apiResourceModel App\Models\Book
      * @return JsonResponse|BookResource
      * @throws Throwable
      */
@@ -62,7 +64,7 @@ class BookController extends ApiController
      * @param int $id
      * @urlParam id int required The ID of the book
      * @apiResource App\Http\Resources\BookResource
-     * @apiResourceModel App\Modules\Book
+     * @apiResourceModel App\Models\Book
      * @return JsonResponse|BookResource
      * @throws Throwable
      */
@@ -79,7 +81,7 @@ class BookController extends ApiController
      * @param int $id
      * @urlParam id int required The ID of the book
      * @apiResource App\Http\Resources\BookResource
-     * @apiResourceModel App\Modules\Book
+     * @apiResourceModel App\Models\Book
      * @return JsonResponse|BookResource
      * @throws Throwable
      */
