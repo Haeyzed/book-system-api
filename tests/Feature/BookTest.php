@@ -10,9 +10,16 @@ use Tests\TestCase;
 
 class BookTest extends TestCase
 {
+    use RefreshDatabase;
 
     private $list;
 
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         parent::setUp();
@@ -29,48 +36,6 @@ class BookTest extends TestCase
         ]);
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    // public function test_example()
-    // {
-    //     $response = $this->get('/');
-
-    //     $response->assertStatus(200);
-    // }
-
-
-    public function test_create_books()
-    {
-
-        $list = Book::factory()->make();
-        $response = $this->postJson(route('books.store'), ['name' => $list->name])
-            ->assertCreated()
-            ->json('data');
-
-        $this->assertEquals($list->name, $response['name']);
-        $this->assertDatabaseHas('books', ['name' => $list->name]);
-    }
-
-    public function test_fetch_all_books()
-    {
-        $this->createBookList();
-        $response = $this->getJson(route('books.index'))->json('data');
-
-        $this->assertEquals(1, count($response));
-        $this->assertEquals('my list', $response[0]['name']);
-    }
-
-    public function test_update_book()
-    {
-        $this->patchJson(route('books.update', $this->list->id), ['name' => 'updated name'])
-            ->assertOk();
-
-        $this->assertDatabaseHas('books', ['id' => $this->list->id, 'name' => 'updated name']);
-    }
-
     public function test_fetch_single_books()
     {
         $response = $this->getJson(route('books.show', $this->list->id))
@@ -80,11 +45,27 @@ class BookTest extends TestCase
         $this->assertEquals($response['name'], $this->list->name);
     }
 
+    public function test_update_book()
+    {
+        $this->patchJson(route('books.update', $this->list->id), [
+            'name' => 'updated name',
+            'isbn' => 'updated isbn',
+            'authors' => ['updated authors'],
+            'number_of_pages' => 123,
+            'publisher' => 'updated publisher',
+            'country' => 'updated country',
+            'release_date' => '2019-08-01'
+        ])
+            ->assertOk();
+
+        $this->assertDatabaseHas('books', ['id' => $this->list->id, 'name' => 'updated name']);
+    }
+
     public function test_delete_book()
     {
-        $this->deleteJson(route('todo-list.destroy', $this->list->id))
+        $this->deleteJson(route('books.destroy', $this->list->id))
             ->assertNoContent();
 
-        $this->assertDatabaseMissing('todo_lists', ['name' => $this->list->name]);
+        $this->assertDatabaseMissing('books', ['name' => $this->list->name]);
     }
 }
