@@ -28,6 +28,11 @@ DB_USERNAME='Your Database Username'
 DB_PASSWORD='Your Database Password'
 ```
 
+Run the following command to migrate the schema into database:
+
+```
+php artisan migrate
+```
 Run the following command to generate your app key:
 
 ```
