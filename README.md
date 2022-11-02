@@ -23,8 +23,8 @@ Go to `.env` file and make changes on the database connection settings
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=books
-DB_USERNAME=root
+DB_DATABASE='Your Database Name'
+DB_USERNAME='Your Database Username'
 DB_PASSWORD='Your Database Password'
 ```
 
