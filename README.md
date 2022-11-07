@@ -45,4 +45,10 @@ Then start your server:
 php artisan serve
 ```
 
+To get/access the documentation:
+
+```
+http://{{baseUrl}}/docs
+```
+
 The Book System project is now up and running!
